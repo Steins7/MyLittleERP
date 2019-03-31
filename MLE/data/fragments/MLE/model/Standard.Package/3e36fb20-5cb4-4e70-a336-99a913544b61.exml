@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Modèle" version="4">
+  <OBJECT>
+    <ID name="Modèle" mc="Standard.Package" uid="3e36fb20-5cb4-4e70-a336-99a913544b61"/>
+    <PID name="UML" mc="Standard.Project" uid="eb3a1de6-1c2f-4e87-93c2-0f2ada8ff215"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Modèle]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Member" mc="Standard.Class" uid="02f835f1-382c-45e4-8c9a-135d0b195aa3"/>
+        <COMPID name="Caracteristic" mc="Standard.Class" uid="a92d22a2-b5e3-4fb8-899a-00885483acef"/>
+        <COMPID name="BureauMember" mc="Standard.Class" uid="5fccb422-2091-4c2c-8e9d-7d7d3dfa2308"/>
+        <COMPID name="TrusteeMember" mc="Standard.Class" uid="468b10c0-3d4a-4d45-9966-a5ee1bb472bb"/>
+        <COMPID name="Reunion" mc="Standard.Class" uid="aa955166-490d-4fbd-a0b2-9e230e859bf4"/>
+        <COMPID name="Date" mc="Standard.Class" uid="295dd60e-a686-4e32-836a-ad6aaabb667f"/>
+        <COMPID name="Compte rendu" mc="Standard.Class" uid="a3fedc5e-f603-4b96-8d7c-a52efb8ea2d3"/>
+        <COMPID name="File" mc="Standard.Class" uid="97a10c65-3ccd-4637-ac48-b680c1979267"/>
+        <COMPID name="AG" mc="Standard.Class" uid="99c17889-7454-4e36-b186-ba7070365d28"/>
+        <COMPID name="Rules" mc="Standard.Class" uid="dbfdb1b8-334e-44ca-aafe-cd2c0d5050f6"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="PersonnelDiagram" mc="Standard.ClassDiagram" uid="af2e2642-6d74-4fbf-87be-41c99b6edf42"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
