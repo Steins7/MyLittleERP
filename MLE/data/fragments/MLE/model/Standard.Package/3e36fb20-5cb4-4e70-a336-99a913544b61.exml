@@ -24,9 +24,12 @@
         <COMPID name="File" mc="Standard.Class" uid="97a10c65-3ccd-4637-ac48-b680c1979267"/>
         <COMPID name="AG" mc="Standard.Class" uid="99c17889-7454-4e36-b186-ba7070365d28"/>
         <COMPID name="Rules" mc="Standard.Class" uid="dbfdb1b8-334e-44ca-aafe-cd2c0d5050f6"/>
+        <COMPID name="Membre2" mc="Standard.Class" uid="8560b717-6eef-4099-a4ec-8971f5e0e5cd"/>
+        <COMPID name="objet" mc="Standard.Class" uid="e98f3d4d-01a1-4ec3-96fd-e377af38c369"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="PersonnelDiagram" mc="Standard.ClassDiagram" uid="af2e2642-6d74-4fbf-87be-41c99b6edf42"/>
+        <COMPID name="BorrowDiagram" mc="Standard.ClassDiagram" uid="efb9fef3-95a1-406e-9851-473cee1e0f0d"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>
