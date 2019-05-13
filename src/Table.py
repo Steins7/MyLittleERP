@@ -1,16 +1,23 @@
+from Flux import *
+from BalanceVerification import *
 
-import Flux
-import BalanceVerification
-class Table():
-	def addBalanceVerification(balance = 0.0):
-		BalanceVerification(balance)
+class Table(object):
+	def __init__(self) :
+		self.table=[]
+	def addBalanceVerification(self,name="",iD ="",cumul =0.0 , balance=0.0 , balanceGap=0.0,jour =[0,0],mois=0,annee=0):
+		a=BalanceVerification(name,iD,cumul,balance,balanceGap,jour,mois,annee)
+		self.table.append(a)
 		return 0
 		
-	def addFlux(name="",iD ="",value =0.0 ,shortInfo="" , longInfo="" ,supplier="" , iN=0.0 , out=0.0):
-		Flux(name,iD,value ,shortInfo , longInfo ,supplier, iN , out)
+	def addFlux(self,name="",iD ="",value =0.0 ,shortInfo="" , longInfo="" ,supplier="" , iN=0.0 , out=0.0 ,jour =[0,0],mois=0,annee=0):
+		a = Flux(name,iD ,value,shortInfo , longInfo,supplier, iN , out,jour ,mois,annee)
+		self.table.append(a)
 		return 0
 		
 	
 if __name__ == "__main__":
-	addFlux()
-	addBalanceVerification()
+
+
+	a = Table()
+	a.addBalanceVerification("theo","bouh-dah", 10.0,10.0,0,[0,3],12,1997)
+	print a.table[0].name

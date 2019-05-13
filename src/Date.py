@@ -5,7 +5,7 @@ class Date(object):
 
     #static variables
     days = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi"]
-    months = ["Janvier","Février","Mars","Avril","Juin","Juillet","Aout","Septembre",
+    months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre",
             "Octobre","Novembre","Décembre"]
 
     def __init__(self, day = [0,0], month = 0, year = 0):
@@ -14,7 +14,7 @@ class Date(object):
         self.day = day
         self.month = month
         self.year = year
-
+		
         
 
 
