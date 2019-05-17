@@ -1,3 +1,4 @@
+# coding=UTF-8
 import json
 import os
 from BalanceVerification import *
@@ -65,4 +66,3 @@ with open(savePath + "/save.json", "w", encoding="utf-8") as fichier:
     json.dump(l1, fichier, default=serializator, indent=4)
     json.dump(l2, fichier, default=serializator, indent=4)
     
-

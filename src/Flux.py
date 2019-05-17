@@ -1,3 +1,4 @@
+# coding=UTF-8
 from Line import *
 
 class Flux(Line):

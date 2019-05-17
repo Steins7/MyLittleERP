@@ -1,4 +1,4 @@
-
+# coding=UTF-8
 import os
 
 path = os.path.abspath(".")
@@ -15,6 +15,4 @@ for i in os.listdir(dirs):
     if os.path.isdir(dirs+"/"+i):   continue
     if i == "README.txt":           continue 
     os.rename(dirs+"/"+i, dirs+"/src/"+i)	
-
-
 
