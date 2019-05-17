@@ -2,44 +2,116 @@
 from Member import *
 
 class Group(object):
+    """A Group is defined by his name and contains Members"""
 
-    def __init__(self):
-        def __init__():
-        	#TODO add to database
+    
+    def __init__(self, name, members=[]):
         
+        #public attributes
+        self.name = name
+
+        #private attributes
+        self.__members = members
 
 
-    def addCaracteristic(self, name = "new caracteristic", attribute = none):
+    def addMember(self, member):
         """
-         Enable the user to add a Caracteristic to all the Members of the Group
-
-        @param string name : The name of the new Caracteristic
-        @param int attribute : The attribute of the new Caracteristic
-        @return bool :
-        @author
+        Add the specified member to the group. If the member is already in the group, this function will
+        raise an exception
         """
-        def addCaracteristic(name,attribute):
-        	for (elem in members):
-        		if (!elem.addCaracteristic(name,attribute)):
-        			return 1
-        	return 0	
+        if(member.ID in self.__members):
+            raise Exception("Oops, " + member.name, " " + member.firstName + " is already in " + self.name)
+        self.__members.append(member)
+        member.belongingGroups.append(self.name)
 
 
-    def deleteCaracteristic(self, caracteristicName):
+    def deleteMember(self, member):
         """
-         Allow the user to delete a Caracteristic from all the Members of the group
-
-        @param string caracteristicName : The name of the caracteristic to be deleted
-        @return bool :
-        @author
+        Delete the specified member from the group. IF the member is not in the group, this function will
+        raise an exception
         """
-        def deleteCaracteristic():
-        	for (elem in members):
-        		if (elem.deleteCaracteristic()):
-        			return 1
-        	return 0
-        	
+        if(not member.ID in self.__members):
+            raise Exception("Oops, " + member.name + " " + member.firstName + " is not in " + self.name)
+        self.__members.remove(member.ID)
+        member.belongingGroups.remove(self.name)
 
 
+    def sortBy(self, sortingKey):
+        """
+        Sort the list of Members in the group by the key specified. If the key is not valid, it will sort by ID
+
+        @return list : the list of sorted members
+        """
+        key = None
+        def name(elem):
+            return elem.name
+        def firstName(elem):
+            return elem.firstName
+        def cotiz(elem):
+            return elem.cotiz
+        def surname(elem):
+            return elem.surname
+        def eMail(elem):
+            return elem.eMail
+        def birthDate(elem):
+            return elem.birthDate
+        switcher = {
+            "name":name,
+            "firstName":firstName,
+            "cotiz":cotiz,
+            "surname":surname,
+            "eMail":eMail,
+            "birthDate":birthDate
+        }
+        func = switcher.get(sortingKey)
+        return sorted(self.__members,key=func)
 
 
+    def iterate_members(self):
+        """python's default iterator implementation"""
+        for elem in self.__members:
+            yield elem
+
+
+    def __contains__(self,key):
+        """python's default "in" implementation"""
+        return key in self.__members
+
+
+    def isEmpty(self):
+        """
+        @return bool : true if the group is empty
+        """
+        return any(self.__members)
+
+
+if(__name__ == "__main__"):
+    
+    normalMembers = Group("normalMembers")
+    clara = Member("Clara","Oswald", True, "b", "b", Date([1,2],3,2004)) 
+    clara1 = Member("Klara","Yswald", True, "a", "a", Date([5,2],7,2002)) 
+    clara2 = Member("CKlara","Aswald", True, "", "", Date([2,2],4,2001)) 
+    clara3 = Member("KClara","Iswald", False, "", "", Date([6,2],5,2022)) 
+    try:
+        normalMembers.addMember(clara)
+        normalMembers.addMember(clara1)
+        normalMembers.addMember(clara2)
+        normalMembers.addMember(clara3)
+    except Exception as inst:
+        print(inst)
+    for m in normalMembers.iterate_members():
+        print( m.ID, " : ",  m.birthDate.getDateString())
+    try:
+        normalMembers.deleteMember(clara)
+    except Exception as inst:
+        print(inst)
+    try:
+        normalMembers.deleteMember(clara)
+    except Exception as inst:
+        print(inst)
+    for m in normalMembers.iterate_members():
+        print( m.ID, " : ",  m.birthDate.getDateString())
+    members = normalMembers.sortBy("birthDate")
+    for m in members:
+        print( m.ID, " : ", m.name, " : ", m.firstName, " : ", m.cotiz, " : ", m.surname, " : ", m.eMail, " : ", m.birthDate.getDateString() )
+    
