@@ -27,6 +27,7 @@ class Date():
         """
         return (Date.days[self.__day[0]] + " " + str(self.__day[1]) + " " + Date.months[self.__month-1]
                 + " " + str(self.__year))
+        
 
     def __lt__(self,other):
         """
@@ -41,7 +42,6 @@ class Date():
                 return self.__month < other.__month
         else:
             return self.__year < other.__year
-
 
 
 # module test
