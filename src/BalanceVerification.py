@@ -1,4 +1,4 @@
-# coding=UTF-8
+
 from Line import *
 
 class BalanceVerification(Line):
@@ -13,7 +13,6 @@ class BalanceVerification(Line):
 
 if __name__ == "__main__":
 	a =BalanceVerification("theo","bouh-dah", 10.0,10.0,0,[0,3],12,1997)
-	print a.name
-	print "a.balance = ", a.balance
-	print a.date.getDateString()
-
+	print(a.name)
+	print("a.balance = "+a.balance)
+	print(a.date.getDateString())
