@@ -1,3 +1,4 @@
+# coding=UTF-8
 from Line import *
 
 class Flux(Line):
@@ -15,6 +16,6 @@ class Flux(Line):
 		
 if __name__ == "__main__":
 	a =Flux("theo","bouh-dah", 10.0,"est beau","mais genre vraiment","quelqu'un",1000.0,0.0,[0,3],12,1997)
-	print(a.name)
-	print("a.iN = "+a.iN)
-	print(a.date.getDateString())
+	print a.name
+	print "a.iN = ", a.iN
+	print a.date.getDateString()
