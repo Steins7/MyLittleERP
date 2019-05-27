@@ -11,7 +11,7 @@ class Page(tk.Frame):
         # tk.Frame.__init__(self,container)
         super(Page,self).__init__()
         self.initFrames(pageNumber,controller)
-    
+
     def initFrames(self,pageNumber,controller):
         utilBar = UtilBar(self,pageNumber,controller)
         navBar = NavBar(self,pageNumber,controller)
@@ -22,12 +22,12 @@ class Page(tk.Frame):
         for frame in self.frames :
             frame.hide()
         self.grid_remove()
-    
+
     def show(self):
         self.grid(row=0, column=0,sticky="nsew")
         for frame in self.frames :
             frame.show()
-        
 
-    
-        
+
+
+

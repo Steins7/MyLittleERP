@@ -13,7 +13,7 @@ class UtilBar(tk.Frame):
         super().__init__(container)
         self.initButton()
         self.show()
-    
+
     def initButton(self):
         btnFile = tk.Button(self,text=strFile,fg="black",bg="white",name=strFile,command=lambda:menu(strFile))
         btnEdit = tk.Button(self,text=strEdit,fg="black",bg="white",name=strEdit,command=lambda:menu(strEdit))
@@ -26,7 +26,7 @@ class UtilBar(tk.Frame):
         self.grid(row=0,column=0,columnspan=3,sticky="snew")
         for i in range(len(self.buttonList)) :
             self.buttonList[i].grid(column=i,row=0,sticky="nsew")
-    
+
     def hide(self):
         for btn in self.buttonList :
             btn.grid_remove()

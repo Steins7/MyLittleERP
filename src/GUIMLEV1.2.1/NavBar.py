@@ -6,3 +6,4 @@ class NavBar(tk.Frame):
         super(NavBar,self).__init__()
         # self.initButton()
         self.grid(row=1,column=0,sticky="nsew")
+
