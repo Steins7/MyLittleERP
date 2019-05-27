@@ -1,0 +1,102 @@
+{
+    "name": "default",
+    "__class__": "Group",
+    "__members": [
+        {
+            "eMail": "b",
+            "belonginGroups": [
+                "default",
+                "default",
+                "default",
+                "default"
+            ],
+            "__class__": "Member",
+            "cotiz": true,
+            "name": "Clara",
+            "firstName": "Oswald",
+            "ID": 0,
+            "birthDate": {
+                "month": 3,
+                "day": [
+                    1,
+                    2
+                ],
+                "__class__": "Date",
+                "year": 2004
+            },
+            "surname": "b"
+        },
+        {
+            "eMail": "a",
+            "belonginGroups": [
+                "default",
+                "default",
+                "default",
+                "default"
+            ],
+            "__class__": "Member",
+            "cotiz": true,
+            "name": "Klara",
+            "firstName": "Yswald",
+            "ID": 1,
+            "birthDate": {
+                "month": 7,
+                "day": [
+                    5,
+                    2
+                ],
+                "__class__": "Date",
+                "year": 2002
+            },
+            "surname": "a"
+        },
+        {
+            "eMail": "",
+            "belonginGroups": [
+                "default",
+                "default",
+                "default",
+                "default"
+            ],
+            "__class__": "Member",
+            "cotiz": true,
+            "name": "CKlara",
+            "firstName": "Aswald",
+            "ID": 2,
+            "birthDate": {
+                "month": 4,
+                "day": [
+                    2,
+                    2
+                ],
+                "__class__": "Date",
+                "year": 2001
+            },
+            "surname": ""
+        },
+        {
+            "eMail": "",
+            "belonginGroups": [
+                "default",
+                "default",
+                "default",
+                "default"
+            ],
+            "__class__": "Member",
+            "cotiz": false,
+            "name": "KClara",
+            "firstName": "Iswald",
+            "ID": 3,
+            "birthDate": {
+                "month": 5,
+                "day": [
+                    6,
+                    2
+                ],
+                "__class__": "Date",
+                "year": 2022
+            },
+            "surname": ""
+        }
+    ]
+}

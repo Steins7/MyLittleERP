@@ -1,0 +1,10 @@
+{
+    "__class__" : "Test",
+    "name" : "salut",
+    "child" : {
+        "__class__" : "Child",
+        "name" : "coucou" },
+    "sleepingTime" : "0"
+}
+              
+             
