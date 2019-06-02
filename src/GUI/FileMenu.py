@@ -1,23 +1,22 @@
 from PySide2.QtWidgets import QMenu,QFileDialog,QInputDialog
 
-from Messages import NewMessage
 from DataTable import DataTable
 
 #import save/parser
 
 class FileMenu(QMenu):
 
-    def __init__(self,parent=None):
+    def __init__(self,mainWindow=None,parent=None):
         super(FileMenu,self).__init__(parent)
 
-        self.parent_ = parent;
+        self.mainWindow_ = mainWindow;
 
         self.setTitle("Fichier")
         self.addAction("Nouveau",self.newFunc)
         self.addAction("Ouvrir...",self.openFunc)
         self.addAction("Importer...",self.importFunc)
         self.addAction("Sauvegarder",self.saveFunc)
-        self.addAction("Sauvegarder sous...",self.saveAsFunc)
+        self.addAction("Exporter sous...",self.exportFunc)
         self.addSeparator()
         self.addAction("Quitter",self.quitFunc)
 
@@ -26,19 +25,21 @@ class FileMenu(QMenu):
     def newFunc(self):
         print("called newFunc")
         #text = QInputDialog.getText(self, "Nouveau Tableau", "type :")
-        items = ["Membres","Tésorerie"]
+        items = ["Membres","Trésorerie"]
         tableType = QInputDialog.getItem(self,"Nouveau Tableau","type de tableau",items,0,False)
         if tableType[1]:
             tableName = QInputDialog.getText(self,"Nouveau Tableau","nom du tableau")
             if tableName[1]: 
                 #TODO implement proper table creation
-                table = DataTable(name = tableName[0])
-                self.parent_.contentTab.addTable(table)
+                table = DataTable(name = tableName[0],tableType = tableType[0])
+                self.mainWindow_.contentTab.addTable(table)
+
 
 
     def openFunc(self):
         print("called openFunc")
-        #TODO link to save code
+        #TODO implement file reading
+
 
 
     def importFunc(self):
@@ -48,15 +49,17 @@ class FileMenu(QMenu):
 
 
     def saveFunc(self):
-        print("called saveFunc")
+        self.mainWindow_.contentTab.saveCurrent()
 
 
 
-    def saveAsFunc(self):
+    def exportFunc(self):
         print("called saveAsFunc")
+        #TODO implement saving feature
 
 
 
     def quitFunc(self):
-        print("called closeFunc")
+        if self.mainWindow_.contentTab.checkTables():
+            self.mainWindow_.quit() 
 

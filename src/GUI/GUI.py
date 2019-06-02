@@ -6,6 +6,6 @@ from MainWindow import MainWindow
 def start():
     app = QApplication(sys.argv)
     app.setApplicationName("My Little ERP")
-    mainWindow = MainWindow()
+    mainWindow = MainWindow(app)
     mainWindow.show()
     sys.exit(app.exec_())

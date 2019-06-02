@@ -10,16 +10,19 @@ from ContentTab import ContentTab
 
 class MainWindow(QMainWindow):
 
-    def __init__(self,parent=None):
+    def __init__(self,application,parent=None):
         super(MainWindow,self).__init__(parent)
 
-        #attributes
+        #private attributes
         self.menuBar_ = QMenuBar()
         self.fileMenu_ = FileMenu(self)
         self.editMenu_ = EditMenu(self)
         self.statusBar_ = QStatusBar()
         self.toolbar_ = QDockWidget()
         self.toolbarWidget_ = Toolbar()
+
+        #public attributes
+        self.application = application
         self.contentTab = ContentTab()
         
         #menuBar
@@ -42,4 +45,7 @@ class MainWindow(QMainWindow):
 
     def helpFunc(self):
         print("called helpFunc")
+
+    def quit(self):
+        self.application.quit()
 
