@@ -14,7 +14,7 @@ class ContentTab(QTabWidget):
 
 
     def addTable(self,table):
-        index = self.addTab(table,table.name)
+        self.addTab(table,table.name)
 
 
 
