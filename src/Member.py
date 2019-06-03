@@ -11,7 +11,7 @@ class Member(object):
     #static variables
     newID = 0
 
-    def __init__(self, name, firstName,  surname, eMail, birthDate, cotiz, belongingGroups = []):
+    def __init__(self, name, firstName, surname="None", eMail="None", birthDate="None", cotiz=False, belongingGroups = []):
     
         #public attributes
         self.ID = Member.newID 
@@ -33,7 +33,8 @@ class Member(object):
         yield self.firstName
         yield self.surname
         yield self.eMail
-        yield self.birthDate.getDateString()
+        #TODO reinclude getDateString when date will be processed
+        yield self.birthDate#.getDateString()
         yield self.cotiz
 
 

@@ -1,6 +1,7 @@
 import os
 import csv
-import Group
+from Group import Group
+from Member import Member
 
 def csvParser(filePath):
 
@@ -14,14 +15,13 @@ def csvParser(filePath):
     if "Members" in fileName:
         members = []
         for row in reader:
-            m = Member()
-            m.name = row['name']
-            m.firstName = row['firstName']
-            m.cotiz = row['cotiz']
-            m.surname = row['surname']
-            m.eMail = row['eMail']
-            m.birthDate = row['birthDate']
-            m.belongingGroup = row['belongingGroup']
+            m = Member(row['name'],
+                       row['firstName'],
+                       row['surname'],
+                       row['eMail'],
+                       row['birthDate'], #ça aussi c'est faux (cf l41)
+                       row['cotiz'],
+                       row['belongingGroups'])
             members.append(m)
            
         csvfile.close()
@@ -62,7 +62,7 @@ def csvParser(filePath):
         csvfile.close()
         return Table(table)    
                 
-    raise Exception("File name or file content is invalid")
+    raise Exception("The file name or file content is invalid")
 
                 
                 
