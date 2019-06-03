@@ -1,5 +1,6 @@
-# coding=UTF-8
-from Date import *
+import sys
+sys.path.insert(0,'GUI/')
 
-date = Date([1,2],3,2004)
-print(date.getDateString())
+import GUI
+GUI.start()
+
