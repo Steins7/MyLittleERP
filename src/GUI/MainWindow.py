@@ -42,8 +42,6 @@ class MainWindow(QMainWindow):
         self.toolbarDoc_.dockLocationChanged.connect(self.toolbarWidget_.refreshLayout)
         self.toolbarWidget_.show()
         #contentab
-        table = DataTable(name = "example table")
-        self.contentTab.addTable(table)
         self.setCentralWidget(self.contentTab)
 
 
