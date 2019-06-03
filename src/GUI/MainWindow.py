@@ -1,4 +1,5 @@
-from PySide2.QtWidgets import QMainWindow,QMenuBar,QStatusBar,QVBoxLayout,QDockWidget,QWidget,QPushButton,QTableWidget, QMenu
+from PySide2.QtWidgets import (QMainWindow,QMenuBar,QStatusBar,QVBoxLayout,QDockWidget,
+                               QWidget,QPushButton,QTableWidget, QMenu)
 from PySide2.QtCore import Qt
 
 from Toolbar import Toolbar
@@ -36,11 +37,9 @@ class MainWindow(QMainWindow):
         self.statusBar.showMessage("status bar")
         self.setStatusBar(self.statusBar)
         #toolBar
-        self.toolbarDoc_.setFeatures(QDockWidget.DockWidgetMovable)
+        self.toolbarDoc_.setFeatures(QDockWidget.NoDockWidgetFeatures )
         self.addDockWidget(Qt.LeftDockWidgetArea,self.toolbarDoc_)
         self.toolbarDoc_.setWidget(self.toolbarWidget_)
-        self.toolbarDoc_.dockLocationChanged.connect(self.toolbarWidget_.refreshLayout)
-        self.toolbarWidget_.show()
         #contentab
         self.setCentralWidget(self.contentTab)
 

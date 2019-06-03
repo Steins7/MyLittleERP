@@ -3,29 +3,11 @@ from PySide2.QtWidgets import QMenu,QFileDialog,QInputDialog
 
 from DataTable import DataTable
 from Messages import ErrorMessage
+
 sys.path.insert(0,'GUI/')
 from saves import getPath
-from CSV import csvParser
+from CSV import csvParser,csvList
 
-from Group import Group
-from Member import Member
-from Date import Date
-
-normalMembers = Group("normalMembers")
-clara = Member("Clara","Oswald", "b", "b", Date([1,2],3,2004), True) 
-clara1 = Member("Klara","Yswald", "a", "a", Date([5,2],7,2002), True) 
-clara2 = Member("CKlara","Aswald", "", "", Date([2,2],4,2001), True)
-clara3 = Member("KClara","Iswald", "", "", Date([6,2],5,2022), True) 
-try:
-    normalMembers.addMember(clara)
-    normalMembers.addMember(clara1)
-    normalMembers.addMember(clara2)
-    normalMembers.addMember(clara3)
-except Exception as inst:
-    print(inst)
-
-
-#import save/parser
 
 class FileMenu(QMenu):
 
@@ -46,7 +28,6 @@ class FileMenu(QMenu):
 
 
     def newFunc(self):
-        #text = QInputDialog.getText(self, "Nouveau Tableau", "type :")
         items = ["Members","Finance"]
         tableType = QInputDialog.getItem(self,"New table","table type",items,0,False)
         if tableType[1]:
@@ -59,20 +40,20 @@ class FileMenu(QMenu):
 
 
     def openFunc(self):
-        path = getPath() + "/csv_files"
+        path = "~/../../csv_files"
+        #TODO add list of files
 
 
 
     def importFunc(self):
         fileName = QFileDialog.getOpenFileName(self,"Import table",
-                                                "~", "CSV files (*.csv)")
+                                                "~/../../", "CSV files (*.csv)")
         if fileName[0] == "":
             return 
 
         try:
-            table = csvParser(fileName[0])
-        except Exception as inst:
-            print(inst)
+        table = csvParser(fileName[0])
+        #except Exception as inst:
             message = ErrorMessage(str(inst))
             message.exec_()
             return
@@ -88,8 +69,17 @@ class FileMenu(QMenu):
 
 
     def exportFunc(self):
-        print("called saveAsFunc")
-        #TODO implement saving feature
+        fileName = QFileDialog.getSaveFileName(self,"Export table",
+                                                "~/../../", "CSV files (*.csv)")
+
+        print(fileName)
+        if fileName[0] == "":
+            return
+
+        name = fileName[0].split("/")[-1]
+        print(name)
+        self.mainWindow_.contentTab.saveCurrent(fileName[0],name,False)        
+        
 
 
 

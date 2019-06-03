@@ -1,24 +1,20 @@
-from PySide2.QtWidgets import QVBoxLayout,QWidget,QPushButton,QDockWidget
+from PySide2.QtWidgets import QVBoxLayout,QHBoxLayout,QStackedLayout,QGroupBox,QWidget,QPushButton,QFrame
+from PySide2.QtCore import Qt
 
-class Toolbar(QDockWidget):
+from ToolButton import ToolButton
+
+class Toolbar(QWidget):
 
     def __init__(self,parent=None):
         super(Toolbar,self).__init__(parent)
 
         #buttons
-        self.button1 = QPushButton(self,"button1")
-        self.button2 = QPushButton(self,"button2")
-        self.button3 = QPushButton(self,"button3")
+        self.button1 = ToolButton("BalanceVerification.xpm","Generate balance verification",self)
+        self.button2 = ToolButton("SortBy.xpm","Sort table",self)
         #layout
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(self)
         layout.addWidget(self.button1)
         layout.addWidget(self.button2)
-        layout.addWidget(self.button3)
         layout.addStretch()
         self.setLayout(layout)
-
-        
-
-    def refreshLayout(self):
-        print("Called refreshLayout")
 
