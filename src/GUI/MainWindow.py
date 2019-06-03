@@ -17,25 +17,30 @@ class MainWindow(QMainWindow):
         self.menuBar_ = QMenuBar()
         self.fileMenu_ = FileMenu(self)
         self.editMenu_ = EditMenu(self)
-        self.statusBar_ = QStatusBar()
-        self.toolbar_ = QDockWidget()
+        self.toolbarDoc_ = QDockWidget(self)
         self.toolbarWidget_ = Toolbar()
+
+        self.setGeometry(0,0,1280,720)
 
         #public attributes
         self.application = application
         self.contentTab = ContentTab()
-        
+        self.statusBar = QStatusBar()
+
         #menuBar
         self.menuBar_.addMenu(self.fileMenu_)
         self.menuBar_.addMenu(self.editMenu_)
         self.menuBar_.addAction("Help",self.helpFunc)
         self.setMenuBar(self.menuBar_)
         #statusBar
-        self.statusBar_.showMessage("status bar")
-        self.setStatusBar(self.statusBar_)
+        self.statusBar.showMessage("status bar")
+        self.setStatusBar(self.statusBar)
         #toolBar
-        self.toolbar_.setWidget(self.toolbarWidget_)
-        self.addDockWidget(Qt.LeftDockWidgetArea,self.toolbar_)
+        self.toolbarDoc_.setFeatures(QDockWidget.DockWidgetMovable)
+        self.addDockWidget(Qt.LeftDockWidgetArea,self.toolbarDoc_)
+        self.toolbarDoc_.setWidget(self.toolbarWidget_)
+        self.toolbarDoc_.dockLocationChanged.connect(self.toolbarWidget_.refreshLayout)
+        self.toolbarWidget_.show()
         #contentab
         table = DataTable(name = "example table")
         self.contentTab.addTable(table)
@@ -45,6 +50,8 @@ class MainWindow(QMainWindow):
 
     def helpFunc(self):
         print("called helpFunc")
+
+
 
     def quit(self):
         self.application.quit()

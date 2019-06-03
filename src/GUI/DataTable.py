@@ -9,9 +9,11 @@ class DataTable(QTableWidget):
         self.type = tableType
         self.isSaved = False
 
+        #TODO use Group and Table functions
         if self.type == "Membres" :
             self.setColumnCount(7)
         if self.type == "Trésorerie" :
             self.setColumnCount(9)
         self.setRowCount(1)
+
         

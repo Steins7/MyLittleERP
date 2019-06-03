@@ -46,6 +46,8 @@ class FileMenu(QMenu):
         print("called importFunc")
         fileName = QFileDialog.getOpenFileName(self,"Importer un tableur",
                                                 "~", "CSV files (*.csv *)")
+        print(fileName)
+
 
 
     def saveFunc(self):
