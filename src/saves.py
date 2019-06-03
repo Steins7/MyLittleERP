@@ -40,9 +40,11 @@ def serializator(obj):
                                 
     raise TypeError(repr(obj) + " n'est pas sérialisable !")
 
+def getPath():
+    path = os.path.abspath(".")
+    path = os.path.split(path)[0]
+    return path
 
-path = os.path.abspath(".")
-path,useless = os.path.split(path)
 
 savePath = path + "/json_files"
 print(savePath)
