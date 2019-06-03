@@ -1,9 +1,9 @@
 # coding=UTF-8
 import json
 import os
-from BalanceVerification import *
+#from BalanceVerification import *
 
-def serializator(obj):
+"""def serializator(obj):
     if isinstance(obj,Line):
         return {'__class__' : "Line",
                 'date' : obj.date,
@@ -39,16 +39,13 @@ def serializator(obj):
 
                                 
     raise TypeError(repr(obj) + " n'est pas sérialisable !")
-
+"""
 def getPath():
     path = os.path.abspath(".")
     path = os.path.split(path)[0]
     return path
 
-
-savePath = path + "/json_files"
-print(savePath)
-
+"""
 l1.name = "salut"
 
 def serializator(obj):
@@ -59,12 +56,12 @@ def serializator(obj):
                 'iD'   : obj.iD }
     if isinstance(obj,Membre):
         return {'__class__' : "Membre",
-                '
+                
     raise TypeError(repr(obj) + " n'est pas sérialisable !")
+"""
 
 
-
-with open(savePath + "/save.json", "w", encoding="utf-8") as fichier:
+"""with open(savePath + "/save.json", "w", encoding="utf-8") as fichier:
     json.dump(l1, fichier, default=serializator, indent=4)
     json.dump(l2, fichier, default=serializator, indent=4)
-    
+"""    

@@ -4,6 +4,7 @@ from PySide2.QtWidgets import QMenu,QFileDialog,QInputDialog
 from DataTable import DataTable
 sys.path.insert(0,'GUI/')
 from saves import getPath
+from CSV import csvParser
 
 from Group import Group
 from Member import Member
@@ -60,13 +61,18 @@ class FileMenu(QMenu):
         path = getPath() + "/csv_files"
         fileName = QFileDialog.getOpenFileName(self,"Import table",
                                                 path, "CSV files (*.csv)")
-        print(fileName)
         if fileName[0] == "":
             return 
 
         #tmp
-        table = DataTable(name="normalMembers",tableType="Members",table=normalMembers) 
-        self.mainWindow_.contentTab.addTable(table)
+        try:
+            table = csvParser(fileName[0])
+        except Exception as inst:
+            print(inst)
+            #TODO add popup message
+            return
+        dataTable = DataTable(name="normalMembers",tableType="Members",table=table) 
+        self.mainWindow_.contentTab.addTable(dataTable)
 
 
 

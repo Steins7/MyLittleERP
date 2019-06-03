@@ -36,7 +36,7 @@ class Group(object):
         member.belongingGroups.remove(self.name)
 
 
-    def sortBy(self, sortingKey):
+    def sortBy(self, sortingKey=None):
         """
         Sort the list of Members in the group by the key specified. If the key is not valid, it will sort by ID
 
@@ -88,10 +88,10 @@ class Group(object):
 if(__name__ == "__main__"):
     
     normalMembers = Group("normalMembers")
-    clara = Member("Clara","Oswald", True, "b", "b", Date([1,2],3,2004)) 
-    clara1 = Member("Klara","Yswald", True, "a", "a", Date([5,2],7,2002)) 
-    clara2 = Member("CKlara","Aswald", True, "", "", Date([2,2],4,2001)) 
-    clara3 = Member("KClara","Iswald", False, "", "", Date([6,2],5,2022)) 
+    clara = Member("Clara","Oswald", "b", "b", Date([1,2],3,2004), True) 
+    clara1 = Member("Klara","Yswald", "a", "a", Date([5,2],7,2002), True) 
+    clara2 = Member("CKlara","Aswald", "", "", Date([2,2],4,2001), True)
+    clara3 = Member("KClara","Iswald", "", "", Date([6,2],5,2022), True) 
     try:
         normalMembers.addMember(clara)
         normalMembers.addMember(clara1)
