@@ -6,19 +6,25 @@ class DataTable(tk.Canvas):
     def __init__(self,container,pageNumber,controller):
         super().__init__(container,bg="red")
         self.yScrollBar=tk.Scrollbar(container,orient='vertical',command=self.yview)
-        self.yScrollBar.grid(row=1,rowspan=2,column=2,sticky="ns")
+        #self.yScrollBar.pack(anchor="e",fill="y",expand="true")
+        #self.yScrollBar.grid(row=1,rowspan=2,column=2,sticky="ns")
         self.xScrollBar=tk.Scrollbar(container,orient='horizontal',command=self.xview)
-        self.xScrollBar.grid(row=3,rowspan=1,column=1,sticky="ew")
+        #self.xScrollBar.pack(anchor="s",fill="y",expand="true")
+        #self.xScrollBar.grid(row=3,rowspan=1,column=1,sticky="ew")
 
         self.config(yscrollcommand=self.yScrollBar.set,xscrollcommand=self.xScrollBar.set)
         self.interior = tk.Frame(self)
-        self.create_window(0, 0, window=self.interior, anchor="nw")
-        self.grid(row=1,rowspan=2,column=1,sticky="nsew")
+        self.window=self.create_window(0, 0, window=self.interior, anchor="nw",tags="all",height="1500",width="1500")
+        #self.pack(anchor="nw",fill="both",expand="true")
+        #self.grid(row=1,rowspan=2,column=1,sticky="nsew")
         self.bind('<Configure>',self.resizeCanvas)
-        self.table(100,10)
+        self.table(40,30)
         self.addtag_all("all")
         self.height = self.winfo_height()
         self.width = self.winfo_width()
+        self.pack(anchor="nw",expand="true",side="top", in_= container)
+        self.yScrollBar.pack(anchor="nw",fill="y",expand="true",side="left", in_= container)
+        self.xScrollBar.pack(anchor="nw",fill="x",expand="true",side="top", in_= container)
 
 
 
@@ -52,6 +58,15 @@ class DataTable(tk.Canvas):
                 cell.grid(row = i, column = j) 
                 self.table.append(cell)
 
+    def resize(self,event):
+        print("there")
+        self.itemconfig(self.window,width=event.width,height=event.height)
 
 
+    def show(self):
+        self.pack(anchor="nw",fill="both",expand="true")
+        #self.grid(row=1,rowspan=2,column=1,sticky="nsew")
 
+
+    def hide(self):
+        self.grid_remove()
