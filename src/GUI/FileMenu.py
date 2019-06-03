@@ -51,12 +51,12 @@ class FileMenu(QMenu):
         if fileName[0] == "":
             return 
 
-        try:
+        #try:
         table = csvParser(fileName[0])
         #except Exception as inst:
-            message = ErrorMessage(str(inst))
-            message.exec_()
-            return
+         #   message = ErrorMessage(str(inst))
+          #  message.exec_()
+           # return
 
         dataTable = DataTable(name="normalMembers",tableType="Members",table=table) 
         self.mainWindow_.contentTab.addTable(dataTable)
@@ -72,13 +72,10 @@ class FileMenu(QMenu):
         fileName = QFileDialog.getSaveFileName(self,"Export table",
                                                 "~/../../", "CSV files (*.csv)")
 
-        print(fileName)
         if fileName[0] == "":
             return
 
-        name = fileName[0].split("/")[-1]
-        print(name)
-        self.mainWindow_.contentTab.saveCurrent(fileName[0],name,False)        
+        self.mainWindow_.contentTab.saveCurrent(fileName[0],False)        
         
 
 

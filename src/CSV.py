@@ -71,49 +71,52 @@ def csvParser(filePath):
     raise Exception("The file name or file content is invalid")
 
 
-def csvSaver(dirPath,obj, name= ""):
+def csvSaver(dirPath,obj):
     """saves obj, either a Group or a Table, in a file with the good name
     at the dirPath location
     name is only for a Table object"""
+
+    name = os.path.split(dirPath)[1]
         
     if isinstance(obj,Group):
-        fileName == obj.name + "Members"
+        fileName = "_Members.csv"
     elif isinstance(obj,Table):
-        fileName == name + "Finances"
+        fileName = "_Finances.csv"
     else: raise Exception("the object given is not good... Grumph")
 
     bF = ''  #bufferFile
-    if isinstance(obj,Goup):
-        for m in obj.__members:
-            bF += m.name + ', '
-            bF += m.firstName + ', '
-            bF += str(cotiz) + ', '
-            bF += surname + ', '
-            bF += eMail + ', '
-            bF += str(birthDate) + ', '
-            bF += str(belongingGroups) + '\n'
+    if isinstance(obj,Group):
+        bF += "name,firstName,cotiz,surname,eMail,birthDate,belongingGroups\n"
+        for m in obj.iterate_members():
+            bF += m.name + ','
+            bF += m.firstName + ','
+            bF += str(m.cotiz) + ','
+            bF += m.surname + ','
+            bF += m.eMail + ','
+            bF += str(m.birthDate) + ','
+            bF += str(m.belongingGroups) + '\n'
             
     if isinstance(obj, Table):
         for l in obj.table:
             if isinstance(l,BalanceVerification):
-                bF += l.name + ', '
-                bF += l.iD + ', '
-                bF += str(l.cumul) + ', '
-                bF += str(l.balance) + ', '
-                bF += str(l.balanceGap) + ', '
+                bF += l.name + ','
+                bF += l.iD + ','
+                bF += str(l.cumul) + ','
+                bF += str(l.balance) + ','
+                bF += str(l.balanceGap) + ','
                 bF += str(l.date) + '\n'
             if isinstance(l,Flux):
-                bF += l.name + ', '
-                bF += l.iD   + ', '
-                bF += str(l.value) + ', '
-                bF += l.shortInfo + ', '
-                bF += l.longInfo + ', '
-                bF += str(l.iN) + ', '
-                bF += str(l.out) + ', '
+                bF += l.name + ','
+                bF += l.iD   + ','
+                bF += str(l.value) + ','
+                bF += l.shortInfo + ','
+                bF += l.longInfo + ','
+                bF += str(l.iN) + ','
+                bF += str(l.out) + ','
                 bF += str(l.Date) + '\n'
         
-    currentFile = open(dirPath+'\\'+fileName,'w')
-    currenfFile = bF
+    currentFile = open(dirPath+fileName,'w')
+    currentFile.write(bF)
     currentFile.close()
 
 
