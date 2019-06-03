@@ -1,7 +1,9 @@
 from PySide2.QtWidgets import QTabWidget,QMessageBox
 
 from DataTable import DataTable
-from Messages import CloseMessage
+from Messages import CloseMessage,ErrorMessage
+from CSV import csvSaver
+
 
 class ContentTab(QTabWidget):
 
@@ -16,16 +18,28 @@ class ContentTab(QTabWidget):
 
 
 
+    def getCurrent(self):
+        return self.tables[self.currentIndex]
+
+
+
     def addTable(self,table):
         index = self.addTab(table,table.name)
         self.tables_[index] = table
 
 
 
-    def saveCurrent(self):
+    def saveCurrent(self,fileName,isSaved=True):
         table = self.tables_[self.currentIndex()]
-        table.isSaved = True;
-        #TODO implement saving feature
+        print(table.table)
+        #try:
+        csvSaver(fileName,table.table)
+        #except Exception as inst:
+         #   message = ErrorMessage(str(inst))
+          #  message.exec_()
+           # return
+
+        table.isSaved = isSaved;
 
 
 

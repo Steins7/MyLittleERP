@@ -49,7 +49,7 @@ class DataTable(QTableWidget):
             for member in memberList:
                 c = 0
                 for attribute in member.iterateAttributes():
-                    item = QTableWidgetItem(attribute)
+                    item = QTableWidgetItem(str(attribute))
                     self.setItem(r,c,item)
                     c += 1
                 r += 1
