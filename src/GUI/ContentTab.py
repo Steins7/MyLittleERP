@@ -32,12 +32,12 @@ class ContentTab(QTabWidget):
     def saveCurrent(self,fileName,isSaved=True):
         table = self.tables_[self.currentIndex()]
         print(table.table)
-        #try:
-        csvSaver(fileName,table.table)
-        #except Exception as inst:
-         #   message = ErrorMessage(str(inst))
-          #  message.exec_()
-           # return
+        try:
+            csvSaver(fileName,table.table)
+        except Exception as inst:
+            message = ErrorMessage(str(inst))
+            message.exec_()
+            return
 
         table.isSaved = isSaved;
 

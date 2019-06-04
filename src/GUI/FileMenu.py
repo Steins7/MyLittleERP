@@ -51,14 +51,14 @@ class FileMenu(QMenu):
         if fileName[0] == "":
             return 
 
-        #try:
-        table = csvParser(fileName[0])
-        #except Exception as inst:
-         #   message = ErrorMessage(str(inst))
-          #  message.exec_()
-           # return
+        try:
+            table,name = csvParser(fileName[0])
+        except Exception as inst:
+            message = ErrorMessage(str(inst))
+            message.exec_()
+            return
 
-        dataTable = DataTable(name="normalMembers",tableType="Members",table=table) 
+        dataTable = DataTable(name=name,tableType="Members",table=table) 
         self.mainWindow_.contentTab.addTable(dataTable)
 
 
@@ -76,7 +76,6 @@ class FileMenu(QMenu):
             return
 
         self.mainWindow_.contentTab.saveCurrent(fileName[0],False)        
-        
 
 
 
