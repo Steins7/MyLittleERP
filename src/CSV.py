@@ -28,7 +28,7 @@ def csvParser(filePath):
                        Date(int(row['birthDate'].split('/')[0]),
                             int(row['birthDate'].split('/')[1]),
                             int(row['birthDate'].split('/')[2])),
-                       bool(row['cotiz']),
+                       bool(row['cotisation']),
                        row['belongingGroups'])
             members.append(m)
            
@@ -39,7 +39,6 @@ def csvParser(filePath):
 
     t = Table()
     for row in reader:
-        l = None
         try:
             t.addBalanceVerification(row['name'],
                                     row['iD'],
@@ -68,7 +67,7 @@ def csvParser(filePath):
             pass
             
         csvfile.close()
-        return [Table(table),name] 
+        return [t,name] 
 
     raise Exception("The file name or file content is invalid")
 
@@ -88,14 +87,14 @@ def csvSaver(dirPath,obj):
 
     bF = ''  #bufferFile
     if isinstance(obj,Group):
-        bF += "name,firstName,cotiz,surname,eMail,birthDate,belongingGroups\n"
-        for m in obj.iterate_members():
+        bF += "name,firstName,surname,eMail,birthDate,cotisation,belongingGroups\n"
+        for m in obj.iterateMembers():
             bF += m.name + ','
             bF += m.firstName + ','
-            bF += str(m.cotiz) + ','
             bF += m.surname + ','
             bF += m.eMail + ','
             bF += str(m.birthDate) + ','
+            bF += str(m.cotiz) + ','
             bF += str(m.belongingGroups) + '\n'
             
     if isinstance(obj, Table):
@@ -128,11 +127,4 @@ def csvList(path):
     fichiers = os.listdir(path)
     csvFiles = [f for f in fichiers if ".csv" in f]
     return csvFiles
-
-
-
-
-
-
-
 

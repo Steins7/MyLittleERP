@@ -1,13 +1,13 @@
-from Date import *
+from Date import Date
 class Line(object)  :
-	  def __init__(self, name="",iD ="", jour =0,mois=0,annee=0):
+	  def __init__(self, name="",iD ="", date="none"):
 		  #public attributes
-		  self.date = Date(jour,mois,annee)
+		  self.date = date
 		  self.name = name
 		  self.iD= iD
 
 if __name__ == "__main__":
-	a =Line("theo","bouh-dah",1,0,0)
+	a =Line("theo","bouh-dah",Date(1,0,0))
 	print(a.name)
 	print(a.date.getDateString())
 	

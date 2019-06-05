@@ -14,6 +14,7 @@ class Group(object):
         self.__members = members
 
 
+
     def addMember(self, member):
         """
         Add the specified member to the group. If the member is already in the group, this function will
@@ -25,9 +26,10 @@ class Group(object):
         member.belongingGroups.append(self.name)
 
 
+
     def deleteMember(self, member):
         """
-        Delete the specified member from the group. IF the member is not in the group, this function will
+        Delete the specified member from the group. If the member is not in the group, this function will
         raise an exception
         """
         if(not member.ID in self.__members):
@@ -36,7 +38,12 @@ class Group(object):
         member.belongingGroups.remove(self.name)
 
 
-    def sortBy(self, sortingKey=None):
+
+    def getLength(self):
+        return len(self.__members)
+
+
+    def sortBy(self, sortingKey=None,reverse=False):
         """
         Sort the list of Members in the group by the key specified. If the key is not valid, it will sort by ID
 
@@ -64,18 +71,34 @@ class Group(object):
             "birthDate":birthDate
         }
         func = switcher.get(sortingKey)
-        return sorted(self.__members,key=func)
+        self.__members.sort(key=func,reverse=reverse)
+        return self.__members
 
 
-    def iterate_members(self):
+
+    def iterateMembers(self):
         """python's default iterator implementation"""
         for elem in self.__members:
             yield elem
 
 
+
     def __contains__(self,key):
         """python's default "in" implementation"""
         return key in self.__members
+
+
+
+    def __getitem__(self,key):
+        """python's default "[]" implementation"""
+        return self.__members[key]
+
+
+
+    def __setitem__(self,key,value):
+        """python's default "[]" implementation"""
+        self.__members[key] = value
+
 
 
     def isEmpty(self):
@@ -85,13 +108,26 @@ class Group(object):
         return any(self.__members)
 
 
+
+    def serialize(self,a):
+        if self.name == 'default':
+            return {'__class__' : "Group",
+                    'name' : self.name,
+                    '__members' : [m.serialize() for m in self.__members] }
+        else:
+            return {'__class__' : "Group",
+                    'name' : self.name,
+                    '__members' : [m.name for m in self.__members] }
+
+
+
 if(__name__ == "__main__"):
     
     normalMembers = Group("normalMembers")
-    clara = Member("Clara","Oswald", "b", "b", Date([1,2],3,2004), True) 
-    clara1 = Member("Klara","Yswald", "a", "a", Date([5,2],7,2002), True) 
-    clara2 = Member("CKlara","Aswald", "", "", Date([2,2],4,2001), True)
-    clara3 = Member("KClara","Iswald", "", "", Date([6,2],5,2022), True) 
+    clara = Member("Clara","Oswald", "b", "b", Date(1,3,2004), True) 
+    clara1 = Member("Klara","Yswald", "a", "a", Date(5,7,2002), True) 
+    clara2 = Member("CKlara","Aswald", "", "", Date(2,4,2001), True)
+    clara3 = Member("KClara","Iswald", "", "", Date(6,5,2022), True) 
     try:
         normalMembers.addMember(clara)
         normalMembers.addMember(clara1)
@@ -99,8 +135,8 @@ if(__name__ == "__main__"):
         normalMembers.addMember(clara3)
     except Exception as inst:
         print(inst)
-    for m in normalMembers.iterate_members():
-        print( m.ID, " : ",  m.birthDate.getDateString())
+    for m in normalMembers.iterateMembers():
+        print( m.ID, " : ",  str(m.birthDate))
     try:
         normalMembers.deleteMember(clara)
     except Exception as inst:
@@ -109,9 +145,9 @@ if(__name__ == "__main__"):
         normalMembers.deleteMember(clara)
     except Exception as inst:
         print(inst)
-    for m in normalMembers.iterate_members():
-        print( m.ID, " : ",  m.birthDate.getDateString())
+    for m in normalMembers.iterateMembers():
+        print( m.ID, " : ",  str(m.birthDate))
     members = normalMembers.sortBy("birthDate")
     for m in members:
-        print( m.ID, " : ", m.name, " : ", m.firstName, " : ", m.cotiz, " : ", m.surname, " : ", m.eMail, " : ", m.birthDate.getDateString() )
+        print( m.ID, " : ", m.name, " : ", m.firstName, " : ", m.cotiz, " : ", m.surname, " : ", m.eMail, " : ",str(m.birthDate) )
     

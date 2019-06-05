@@ -1,64 +1,84 @@
-from PySide2.QtWidgets import QTableWidget, QTableWidgetItem
+from PySide2.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QFont
 
 
 class DataTable(QTableWidget):
+    """
+    A general table that will be displayed in the contentTab
+    """
     
-    def __init__(self,parent=None,name="default",tableType="Members",table=None):
+    def __init__(self,name,table,tableType,parent=None):
         super(DataTable,self).__init__(parent)
 
         self.name = name
-        self.type = tableType
         self.isSaved = False
         self.table = table
-        
+        self.tableType = tableType
 
-        #TODO use Group and Table functions
-        if self.type == "Members" :
+        nbColumn = self.table.getLength()
+        self.setRowCount(nbColumn)
+        if self.tableType == "Members":
             self.setColumnCount(7)
-            memberList = self.table.sortBy()
-            self.setRowCount(len(memberList)+1)
-            font = QFont("Times", 12, QFont.Bold)
-            item = QTableWidgetItem("Name")
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            item.setFont(font)
-            self.setItem(0,0,item)
-            item = QTableWidgetItem("Firstname")
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            item.setFont(font)
-            self.setItem(0,1,item)
-            item = QTableWidgetItem("Surname")
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            item.setFont(font)
-            self.setItem(0,2,item)
-            item = QTableWidgetItem("eMail")
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            item.setFont(font)
-            self.setItem(0,3,item)
-            item = QTableWidgetItem("Birthdate")
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            item.setFont(font)
-            self.setItem(0,4,item)
-            item = QTableWidgetItem("Cotisation")
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            item.setFont(font)
-            self.setItem(0,5,item)
+            titles = ["Name","FirstName","Surname","eMail","BirthDate","Cotisation","Groups"]
+        elif self.tableType == "Finances":
+            self.setColumnCount(6)
+            titles = ["ID","Name","Cumulated_sum","Balance","Balance_gap","Date"]
+        else:
+            raise Exception("The table type is invalid")
 
-            r = 1
-            for member in memberList:
-                c = 0
-                for attribute in member.iterateAttributes():
-                    item = QTableWidgetItem(str(attribute))
-                    self.setItem(r,c,item)
-                    c += 1
-                r += 1
+        self.setHorizontalHeaderLabels(titles)
+        self.itemChanged.connect(self.updateData)
 
-        if self.type == "Trésorerie" :
-            self.setColumnCount(9)
-
-        #TODO set option to do that automaticaly
-        self.resizeColumnsToContents()
+        self.refresh()
 
 
-        
+
+    def updateData(self,item):
+        """
+        update the content of the table, based on the users modifications
+        """
+        data = item.data(Qt.EditRole)
+        self.table[item.row()][item.column()] = data
+        self.isSaved = False
+
+
+
+    def refresh(self):
+        """
+        refresh the values displayed
+        """
+        if(self.tableType == "Members"):
+            if self.table.getLength() > 0:
+                r = 0
+                for member in self.table.iterateMembers():
+                    c = 0
+                    for attribute in member.iterateAttributes():
+                        item = QTableWidgetItem(str(attribute))
+                        self.setItem(r,c,item)
+                        c += 1
+                    r += 1
+            
+            for i in range(6):
+                self.horizontalHeader().setMinimumSectionSize(100)
+                self.horizontalHeader().setSectionResizeMode(i,QHeaderView.ResizeToContents)
+            self.horizontalHeader().setSectionResizeMode(6,QHeaderView.Stretch)
+        else:
+            #TODO add support for tresury table
+            for i in range(5):
+                self.horizontalHeader().setMinimumSectionSize(200)
+                self.horizontalHeader().setSectionResizeMode(i,QHeaderView.ResizeToContents)
+            self.horizontalHeader().setSectionResizeMode(5,QHeaderView.Stretch)
+         
+
+
+    def sortBy(self,key,reverse=False):
+        """
+        sort the table folowing the specified parameters
+        """
+        if(self.tableType == "Members"):
+            self.table.sortBy(key,reverse)
+            self.refresh()
+        else:
+            #TODO add support for tresury table
+            pass
+ 

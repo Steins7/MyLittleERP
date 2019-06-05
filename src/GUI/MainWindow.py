@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
         self.fileMenu_ = FileMenu(self)
         self.editMenu_ = EditMenu(self)
         self.toolbarDoc_ = QDockWidget(self)
-        self.toolbarWidget_ = Toolbar()
+        self.toolbarWidget_ = Toolbar(self)
 
         self.setGeometry(0,0,1280,720)
 
@@ -46,10 +46,17 @@ class MainWindow(QMainWindow):
 
 
     def helpFunc(self):
+        """
+        Call the help tab
+        To be added
+        """
         print("called helpFunc")
 
 
 
     def quit(self):
+        """
+        Quit the application
+        """
         self.application.quit()
 
