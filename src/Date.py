@@ -36,6 +36,14 @@ class Date():
 
 
 
+    def serialize(self):
+        return {'__class__' : "Date",
+                'day'   : self.__day,
+                'month' : self.__month,
+				'year' : self.__year }
+
+
+
 # module test
 
 if(__name__ == "__main__"):

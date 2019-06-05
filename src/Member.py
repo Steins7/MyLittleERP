@@ -65,6 +65,19 @@ class Member(object):
 
 
 
+    def serialize(self):
+        return {'__class__' : "Group",
+            'ID'        : self.ID,
+            'name'      : self.name,
+            'firstName' : self.firstName,
+            'cotiz'     : self.cotiz,
+            'surname'   : self.surname,
+            'eMail'     : self.eMail,
+            'birthDate' : self.birthDate.serialize(),
+            'belonginGroups' : self.belongingGroups }
+
+
+
 if(__name__ == "__main__"):
    pass
 

@@ -14,6 +14,7 @@ class Group(object):
         self.__members = members
 
 
+
     def addMember(self, member):
         """
         Add the specified member to the group. If the member is already in the group, this function will
@@ -25,6 +26,7 @@ class Group(object):
         member.belongingGroups.append(self.name)
 
 
+
     def deleteMember(self, member):
         """
         Delete the specified member from the group. IF the member is not in the group, this function will
@@ -34,6 +36,7 @@ class Group(object):
             raise Exception("Oops, " + member.name + " " + member.firstName + " is not in " + self.name)
         self.__members.remove(member.ID)
         member.belongingGroups.remove(self.name)
+
 
 
     def sortBy(self, sortingKey=None,reverse=False):
@@ -75,6 +78,7 @@ class Group(object):
             yield elem
 
 
+
     def __contains__(self,key):
         """python's default "in" implementation"""
         return key in self.__members
@@ -98,6 +102,18 @@ class Group(object):
         @return bool : true if the group is empty
         """
         return any(self.__members)
+
+
+
+    def serialize(self,a):
+        if self.name == 'default':
+            return {'__class__' : "Group",
+                    'name' : self.name,
+                    '__members' : [m.serialize() for m in self.__members] }
+        else:
+            return {'__class__' : "Group",
+                    'name' : self.name,
+                    '__members' : [m.name for m in self.__members] }
 
 
 

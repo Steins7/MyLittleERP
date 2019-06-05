@@ -45,6 +45,20 @@ def getPath():
     path = os.path.split(path)[0]
     return path
 
+
+
+def jsonParser(filePath):
+    """ filePath is where the file is save, and it
+    must include the name of the file
+    """
+        
+    
+def jsonSaver(dirPath,obj):
+    """saves obj, either a Group or a Table, in a file with the good name
+    at the dirPath location
+    name is only for a Table object"""
+    with open(dirPath, "w", encoding="utf-8") as fichier:
+        json.dump(obj, fichier, default=obj.serialize(), indent=4)
 """
 l1.name = "salut"
 
