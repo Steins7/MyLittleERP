@@ -36,7 +36,7 @@ class Group(object):
         member.belongingGroups.remove(self.name)
 
 
-    def sortBy(self, sortingKey=None):
+    def sortBy(self, sortingKey=None,reverse=False):
         """
         Sort the list of Members in the group by the key specified. If the key is not valid, it will sort by ID
 
@@ -64,7 +64,7 @@ class Group(object):
             "birthDate":birthDate
         }
         func = switcher.get(sortingKey)
-        self.__members = sorted(self.__members,key=func)
+        self.__members.sort(key=func,reverse=reverse)
         return self.__members
 
 

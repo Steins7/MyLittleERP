@@ -28,6 +28,7 @@ class FileMenu(QMenu):
 
         self.addAction("Import...",self.importFunc)
         self.addAction("Save",self.saveFunc)
+        self.addAction("Save all",self.saveAllFunc)
         self.addAction("Export...",self.exportFunc)
         self.addSeparator()
         self.addAction("Quit",self.quitFunc)
@@ -46,6 +47,10 @@ class FileMenu(QMenu):
 
 
     def openFunc(self,fileName):
+        """
+        Open the file at the specified path
+        The file has to be JSON (for ot it's CSV though)
+        """
         print(fileName)
         #TODO temporary, to be change by json call
         try:
@@ -96,6 +101,11 @@ class FileMenu(QMenu):
 
     def saveFunc(self):
         self.mainWindow_.contentTab.saveCurrent()
+
+
+
+    def saveAllFunc(self):
+        self.maiWindow_.contentTab.saveAll()
 
 
 

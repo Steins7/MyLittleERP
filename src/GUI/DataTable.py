@@ -15,12 +15,8 @@ class DataTable(QTableWidget):
 
 
     def updateData(self,item):
-       # print(item.row())
-       # print(item.column())
         data = item.data(Qt.EditRole)
-       # print(data)
-        self.table[item.row()-1][item.column()] = data
-       # print(self.table[item.row()-1][item.column()])
+        self.table[item.row()][item.column()] = data
         self.isSaved = False
 
 
@@ -55,8 +51,8 @@ class GroupTable(DataTable):
 
     
 
-    def sortBy(self,key):
-        self.table.sortBy(key)
+    def sortBy(self,key,reverse=False):
+        self.table.sortBy(key,reverse)
         self.refresh()
  
     

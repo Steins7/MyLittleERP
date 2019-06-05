@@ -26,7 +26,6 @@ class ContentTab(QTabWidget):
 
     def saveCurrent(self,fileName,isSaved=True):
         table = self.tables_[self.currentIndex()]
-        print(table.table)
         try:
             csvSaver(fileName,table.table)
         except Exception as inst:
@@ -35,6 +34,18 @@ class ContentTab(QTabWidget):
             return
 
         table.isSaved = isSaved;
+
+
+
+    def saveAll(self):
+        for table in tables_:
+            try:
+                csvSaver(table.name,table.table)
+            except Exception as inst:
+                message = ErrorMessage(str(inst))
+                message.exec_()
+                return
+            table.isSaved = True
 
 
 
@@ -47,8 +58,7 @@ class ContentTab(QTabWidget):
             if returnValue == QMessageBox.Cancel:
                 return False
             if returnValue == QMessageBox.Save:
-                #TODO add save feature here
-                table.isSaved = True
+                self.SaveCurrent(table.name)
         
         self.removeTab(index)
         return True
@@ -64,8 +74,8 @@ class ContentTab(QTabWidget):
 
 
 
-    def sortTable(self,key):
+    def sortTable(self,key,reverse=False):
         table = self.tables_[self.currentIndex()]
-        table.table.sortBy(key)
+        table.sortBy(key,reverse)
         table.refresh()
 
