@@ -12,6 +12,9 @@ from CSV import csvParser,csvList
 
 
 class FileMenu(QMenu):
+    """
+    A custom menu designed to fit the menubar
+    """
 
     def __init__(self,mainWindow,parent=None):
         super(FileMenu,self).__init__(parent)
@@ -36,6 +39,10 @@ class FileMenu(QMenu):
 
 
     def newFunc(self):
+        """
+        Creates a new table, it opens a popup for the user to 
+        chose the type and name
+        """
         items = ["Members","Finance"]
         tableType = QInputDialog.getItem(self,"New table","table type",items,0,False)
         if tableType[1]:
@@ -66,6 +73,10 @@ class FileMenu(QMenu):
 
 
     def refreshOpenMenu(self):
+        """
+        Refresh the "Open" menu so that new file can be seen
+        To be changed when csv is dropped for internal saves
+        """
         path = dirname(dirname(dirname((abspath(__file__)))))
         path += "/csv_files"
         #TODO implement json
@@ -77,10 +88,13 @@ class FileMenu(QMenu):
         self.openMenu.addSeparator()
         self.openMenu.addAction("Refresh",self.refreshOpenMenu)
         
-        
 
 
     def importFunc(self):
+        """
+        Allow the user to choose in the filesystem a csv file and open it
+        in MLE
+        """
         fileName = QFileDialog.getOpenFileName(self,"Import table",
                                                 "~/../../", "CSV files (*.csv)")
         print(fileName[0])
@@ -100,16 +114,25 @@ class FileMenu(QMenu):
 
 
     def saveFunc(self):
+        """
+        Saves the specified Table in internal storage
+        """
         self.mainWindow_.contentTab.saveCurrent()
 
 
 
     def saveAllFunc(self):
+        """
+        Saves all tables in internal storage
+        """
         self.maiWindow_.contentTab.saveAll()
 
 
 
     def exportFunc(self):
+        """
+        Allow the user to choose in the filesystem a path to save a table as a csv
+        """
         fileName = QFileDialog.getSaveFileName(self,"Export table",
                                                 "~/../../", "CSV files (*.csv)")
 
@@ -121,6 +144,9 @@ class FileMenu(QMenu):
 
 
     def quitFunc(self):
+        """
+        Quit the application after checking if all tables have been saved
+        """
         if self.mainWindow_.contentTab.checkTables():
             self.mainWindow_.quit() 
 

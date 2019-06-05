@@ -4,6 +4,9 @@ from PySide2.QtCore import Qt
 from ToolButton import ToolButton
 
 class Toolbar(QWidget):
+    """
+    a custom Widget to be used as a toolbar on the left side of the appication
+    """
 
     def __init__(self,mainWindow,parent=None):
         super(Toolbar,self).__init__(parent)
@@ -37,6 +40,4 @@ class Toolbar(QWidget):
         layout.addWidget(self.sortButton_inv)
         layout.addStretch()
         self.setLayout(layout)
-
-
 

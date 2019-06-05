@@ -19,12 +19,18 @@ class ContentTab(QTabWidget):
 
 
     def addTable(self,table):
+        """
+        Allow to add a new table in the view
+        """
         index = self.addTab(table,table.name)
         self.tables_[index] = table
 
 
 
     def saveCurrent(self,fileName,isSaved=True):
+        """
+        Allow to save the table currently displayed
+        """
         table = self.tables_[self.currentIndex()]
         try:
             csvSaver(fileName,table.table)
@@ -38,6 +44,9 @@ class ContentTab(QTabWidget):
 
 
     def saveAll(self):
+        """
+        Save all tables
+        """
         for table in tables_:
             try:
                 csvSaver(table.name,table.table)
@@ -50,6 +59,10 @@ class ContentTab(QTabWidget):
 
 
     def closeTable(self,index):
+        """
+        Close the specified table, after prompting the user if the
+        table has not been saved
+        """
         table = self.tables_[index]
         if table.isSaved == False:
             message = CloseMessage(table.name)
@@ -66,6 +79,10 @@ class ContentTab(QTabWidget):
     
 
     def checkTables(self):
+        """
+        check if a table hasn't been saved in the displayed tables
+        """
+
         unsavedTables = []
         for elem in self.tables_:
             if not self.closeTable(elem):
@@ -75,6 +92,9 @@ class ContentTab(QTabWidget):
 
 
     def sortTable(self,key,reverse=False):
+        """
+        sort the current table by the key specified
+        """
         table = self.tables_[self.currentIndex()]
         table.sortBy(key,reverse)
         table.refresh()

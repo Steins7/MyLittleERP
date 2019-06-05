@@ -3,6 +3,9 @@ from PySide2.QtCore import Qt
 
 
 class DataTable(QTableWidget):
+    """
+    A general table that will be displayed in the contentTab
+    """
     
     def __init__(self,name,table,parent=None):
         super(DataTable,self).__init__(parent)
@@ -15,6 +18,9 @@ class DataTable(QTableWidget):
 
 
     def updateData(self,item):
+        """
+        update the content of the table, based on the users modifications
+        """
         data = item.data(Qt.EditRole)
         self.table[item.row()][item.column()] = data
         self.isSaved = False
@@ -35,6 +41,9 @@ class GroupTable(DataTable):
 
 
     def refresh(self):
+        """
+        refresh the values displayed
+        """
         r = 0
         for member in self.table.iterateMembers():
             c = 0
@@ -52,6 +61,9 @@ class GroupTable(DataTable):
     
 
     def sortBy(self,key,reverse=False):
+        """
+        sort the table folowing the specified parameters
+        """
         self.table.sortBy(key,reverse)
         self.refresh()
  

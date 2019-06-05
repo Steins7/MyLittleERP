@@ -46,10 +46,17 @@ class MainWindow(QMainWindow):
 
 
     def helpFunc(self):
+        """
+        Call the help tab
+        To be added
+        """
         print("called helpFunc")
 
 
 
     def quit(self):
+        """
+        Quit the application
+        """
         self.application.quit()
 
