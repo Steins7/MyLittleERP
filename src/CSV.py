@@ -14,10 +14,11 @@ def csvParser(filePath):
 
     print(filePath)
     fileName = os.path.split(filePath)[1]
+    name = fileName.split(".")[0]
     csvfile = open(filePath, newline = '')
     reader = csv.DictReader(csvfile)
 
-    if "Members" in fileName:
+    try:
         members = []
         for row in reader:
             m = Member(row['name'],
@@ -27,46 +28,46 @@ def csvParser(filePath):
                        Date(int(row['birthDate'].split('/')[0]),
                             int(row['birthDate'].split('/')[1]),
                             int(row['birthDate'].split('/')[2])),
-                       bool(row['cotiz']),
+                       bool(row['cotisation']),
                        row['belongingGroups'])
             members.append(m)
            
         csvfile.close()
-        return Group(fileName.split("Members")[0],members)
-           
-    if "Finances" in fileName:
-        t = Table()
-        for row in reader:
-            l = None
-            try:
-                t.addBalanceVerification(row['name'],
-                                       row['iD'],
-                                       float(row["cumul"]),
-                                       float(row["balance"]),
-                                       float(row['balanceGap']),
-                                       int(row['date'].split('/')[0]),
-                                       int(row['date'].split('/')[1]),
-                                       int(row['date'].split('/')[2]))
-            except:
-                pass
+        return [Group(name,members),name]
+    except:
+        pass
+
+    t = Table()
+    for row in reader:
+        try:
+            t.addBalanceVerification(row['name'],
+                                    row['iD'],
+                                    float(row["cumul"]),
+                                    float(row["balance"]),
+                                    float(row['balanceGap']),
+                                    int(row['date'].split('/')[0]),
+                                    int(row['date'].split('/')[1]),
+                                    int(row['date'].split('/')[2]))
+        except:
+            pass
+        
+        try:
+            t.addFlux(row["name"],
+                        row['iD'],
+                        float(row['value']),
+                        row['shortInfo'],
+                       row['longInfo'],
+                        row['supplier'],
+                        float(row['iN']),
+                        float(row['out']),
+                        int(row['date'].split('/')[0]),
+                        int(row['date'].split('/')[1]),
+                        int(row['date'].split('/')[2]))
+        except:
+            pass
             
-            try:
-                t.addFlux(row["name"],
-                          row['iD'],
-                          float(row['value']),
-                          row['shortInfo'],
-                          row['longInfo'],
-                          row['supplier'],
-                          float(row['iN']),
-                          float(row['out']),
-                          int(row['date'].split('/')[0]),
-                          int(row['date'].split('/')[1]),
-                          int(row['date'].split('/')[2]))
-            except:
-                pass
-                
         csvfile.close()
-        return Table(table)    
+        return [t,name] 
 
     raise Exception("The file name or file content is invalid")
 
@@ -79,21 +80,21 @@ def csvSaver(dirPath,obj):
     name = os.path.split(dirPath)[1]
         
     if isinstance(obj,Group):
-        fileName = "_Members.csv"
+        fileName = ".csv"
     elif isinstance(obj,Table):
-        fileName = "_Finances.csv"
+        fileName = ".csv"
     else: raise Exception("the object given is not good... Grumph")
 
     bF = ''  #bufferFile
     if isinstance(obj,Group):
-        bF += "name,firstName,cotiz,surname,eMail,birthDate,belongingGroups\n"
-        for m in obj.iterate_members():
+        bF += "name,firstName,surname,eMail,birthDate,cotisation,belongingGroups\n"
+        for m in obj.iterateMembers():
             bF += m.name + ','
             bF += m.firstName + ','
-            bF += str(m.cotiz) + ','
             bF += m.surname + ','
             bF += m.eMail + ','
             bF += str(m.birthDate) + ','
+            bF += str(m.cotiz) + ','
             bF += str(m.belongingGroups) + '\n'
             
     if isinstance(obj, Table):

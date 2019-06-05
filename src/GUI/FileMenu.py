@@ -1,7 +1,8 @@
+from os.path import dirname,abspath
 import sys
 from PySide2.QtWidgets import QMenu,QFileDialog,QInputDialog
 
-from DataTable import DataTable
+from DataTable import DataTable, GroupTable
 from Messages import ErrorMessage
 
 sys.path.insert(0,'GUI/')
@@ -9,16 +10,22 @@ from saves import getPath
 from CSV import csvParser,csvList
 
 
+
 class FileMenu(QMenu):
 
-    def __init__(self,mainWindow=None,parent=None):
+    def __init__(self,mainWindow,parent=None):
         super(FileMenu,self).__init__(parent)
 
         self.mainWindow_ = mainWindow;
 
         self.setTitle("File")
         self.addAction("New",self.newFunc)
-        self.addAction("Open...",self.openFunc)
+
+        self.openMenu = QMenu()
+        self.openMenu.setTitle("Open...")
+        self.refreshOpenMenu()
+        self.addMenu(self.openMenu)
+
         self.addAction("Import...",self.importFunc)
         self.addAction("Save",self.saveFunc)
         self.addAction("Export...",self.exportFunc)
@@ -33,32 +40,56 @@ class FileMenu(QMenu):
         if tableType[1]:
             tableName = QInputDialog.getText(self,"New table","table name")
             if tableName[1]: 
-                #TODO implement proper table creation
                 table = DataTable(name = tableName[0],tableType = tableType[0])
                 self.mainWindow_.contentTab.addTable(table)
 
 
 
-    def openFunc(self):
-        path = "~/../../csv_files"
-        #TODO add list of files
+    def openFunc(self,fileName):
+        print(fileName)
+        #TODO temporary, to be change by json call
+        try:
+            table,name = csvParser(fileName)
+        except Exception as inst:
+            message = ErrorMessage(str(inst))
+            message.exec_()
+            return
 
+        dataTable = GroupTable(name,table) 
+        self.mainWindow_.contentTab.addTable(dataTable)
+
+
+
+    def refreshOpenMenu(self):
+        path = dirname(dirname(dirname((abspath(__file__)))))
+        path += "/csv_files"
+        #TODO implement json
+        files = csvList(path)
+        print(files)
+        self.openMenu.clear()
+        for elem in files:
+            self.openMenu.addAction(elem,lambda : self.openFunc(path + "/" + elem))
+        self.openMenu.addSeparator()
+        self.openMenu.addAction("Refresh",self.refreshOpenMenu)
+        
+        
 
 
     def importFunc(self):
         fileName = QFileDialog.getOpenFileName(self,"Import table",
                                                 "~/../../", "CSV files (*.csv)")
+        print(fileName[0])
         if fileName[0] == "":
             return 
 
-        #try:
-        table = csvParser(fileName[0])
-        #except Exception as inst:
-         #   message = ErrorMessage(str(inst))
-          #  message.exec_()
-           # return
+        try:
+            table,name = csvParser(fileName[0])
+        except Exception as inst:
+            message = ErrorMessage(str(inst))
+            message.exec_()
+            return
 
-        dataTable = DataTable(name="normalMembers",tableType="Members",table=table) 
+        dataTable = GroupTable(name,table) 
         self.mainWindow_.contentTab.addTable(dataTable)
 
 
@@ -76,7 +107,6 @@ class FileMenu(QMenu):
             return
 
         self.mainWindow_.contentTab.saveCurrent(fileName[0],False)        
-        
 
 
 

@@ -64,10 +64,12 @@ class Group(object):
             "birthDate":birthDate
         }
         func = switcher.get(sortingKey)
-        return sorted(self.__members,key=func)
+        self.__members = sorted(self.__members,key=func)
+        return self.__members
 
 
-    def iterate_members(self):
+
+    def iterateMembers(self):
         """python's default iterator implementation"""
         for elem in self.__members:
             yield elem
@@ -78,11 +80,25 @@ class Group(object):
         return key in self.__members
 
 
+
+    def __getitem__(self,key):
+        """python's default "[]" implementation"""
+        return self.__members[key]
+
+
+
+    def __setitem__(self,key,value):
+        """python's default "[]" implementation"""
+        self.__members[key] = value
+
+
+
     def isEmpty(self):
         """
         @return bool : true if the group is empty
         """
         return any(self.__members)
+
 
 
 if(__name__ == "__main__"):
@@ -99,7 +115,7 @@ if(__name__ == "__main__"):
         normalMembers.addMember(clara3)
     except Exception as inst:
         print(inst)
-    for m in normalMembers.iterate_members():
+    for m in normalMembers.iterateMembers():
         print( m.ID, " : ",  m.birthDate.getDateString())
     try:
         normalMembers.deleteMember(clara)
@@ -109,7 +125,7 @@ if(__name__ == "__main__"):
         normalMembers.deleteMember(clara)
     except Exception as inst:
         print(inst)
-    for m in normalMembers.iterate_members():
+    for m in normalMembers.iterateMembers():
         print( m.ID, " : ",  m.birthDate.getDateString())
     members = normalMembers.sortBy("birthDate")
     for m in members:

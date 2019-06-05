@@ -18,11 +18,6 @@ class ContentTab(QTabWidget):
 
 
 
-    def getCurrent(self):
-        return self.tables[self.currentIndex]
-
-
-
     def addTable(self,table):
         index = self.addTab(table,table.name)
         self.tables_[index] = table
@@ -32,12 +27,12 @@ class ContentTab(QTabWidget):
     def saveCurrent(self,fileName,isSaved=True):
         table = self.tables_[self.currentIndex()]
         print(table.table)
-        #try:
-        csvSaver(fileName,table.table)
-        #except Exception as inst:
-         #   message = ErrorMessage(str(inst))
-          #  message.exec_()
-           # return
+        try:
+            csvSaver(fileName,table.table)
+        except Exception as inst:
+            message = ErrorMessage(str(inst))
+            message.exec_()
+            return
 
         table.isSaved = isSaved;
 
@@ -66,4 +61,11 @@ class ContentTab(QTabWidget):
             if not self.closeTable(elem):
                 return False
         return True
+
+
+
+    def sortTable(self,key):
+        table = self.tables_[self.currentIndex()]
+        table.table.sortBy(key)
+        table.refresh()
 
