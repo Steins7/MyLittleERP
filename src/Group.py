@@ -29,7 +29,7 @@ class Group(object):
 
     def deleteMember(self, member):
         """
-        Delete the specified member from the group. IF the member is not in the group, this function will
+        Delete the specified member from the group. If the member is not in the group, this function will
         raise an exception
         """
         if(not member.ID in self.__members):
@@ -37,6 +37,10 @@ class Group(object):
         self.__members.remove(member.ID)
         member.belongingGroups.remove(self.name)
 
+
+
+    def getLength(self):
+        return len(self.__members)
 
 
     def sortBy(self, sortingKey=None,reverse=False):
@@ -120,10 +124,10 @@ class Group(object):
 if(__name__ == "__main__"):
     
     normalMembers = Group("normalMembers")
-    clara = Member("Clara","Oswald", "b", "b", Date([1,2],3,2004), True) 
-    clara1 = Member("Klara","Yswald", "a", "a", Date([5,2],7,2002), True) 
-    clara2 = Member("CKlara","Aswald", "", "", Date([2,2],4,2001), True)
-    clara3 = Member("KClara","Iswald", "", "", Date([6,2],5,2022), True) 
+    clara = Member("Clara","Oswald", "b", "b", Date(1,3,2004), True) 
+    clara1 = Member("Klara","Yswald", "a", "a", Date(5,7,2002), True) 
+    clara2 = Member("CKlara","Aswald", "", "", Date(2,4,2001), True)
+    clara3 = Member("KClara","Iswald", "", "", Date(6,5,2022), True) 
     try:
         normalMembers.addMember(clara)
         normalMembers.addMember(clara1)
@@ -132,7 +136,7 @@ if(__name__ == "__main__"):
     except Exception as inst:
         print(inst)
     for m in normalMembers.iterateMembers():
-        print( m.ID, " : ",  m.birthDate.getDateString())
+        print( m.ID, " : ",  str(m.birthDate))
     try:
         normalMembers.deleteMember(clara)
     except Exception as inst:
@@ -142,8 +146,8 @@ if(__name__ == "__main__"):
     except Exception as inst:
         print(inst)
     for m in normalMembers.iterateMembers():
-        print( m.ID, " : ",  m.birthDate.getDateString())
+        print( m.ID, " : ",  str(m.birthDate))
     members = normalMembers.sortBy("birthDate")
     for m in members:
-        print( m.ID, " : ", m.name, " : ", m.firstName, " : ", m.cotiz, " : ", m.surname, " : ", m.eMail, " : ", m.birthDate.getDateString() )
+        print( m.ID, " : ", m.name, " : ", m.firstName, " : ", m.cotiz, " : ", m.surname, " : ", m.eMail, " : ",str(m.birthDate) )
     

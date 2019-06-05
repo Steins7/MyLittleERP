@@ -2,12 +2,14 @@ from os.path import dirname,abspath
 import sys
 from PySide2.QtWidgets import QMenu,QFileDialog,QInputDialog
 
-from DataTable import DataTable, GroupTable
+from DataTable import DataTable
 from Messages import ErrorMessage
 
 sys.path.insert(0,'GUI/')
 from saves import getPath
 from CSV import csvParser,csvList
+from Group import Group
+from Table import Table
 
 
 
@@ -43,13 +45,17 @@ class FileMenu(QMenu):
         Creates a new table, it opens a popup for the user to 
         chose the type and name
         """
-        items = ["Members","Finance"]
+        items = ["Members","Finances"]
         tableType = QInputDialog.getItem(self,"New table","table type",items,0,False)
         if tableType[1]:
             tableName = QInputDialog.getText(self,"New table","table name")
             if tableName[1]: 
-                table = DataTable(name = tableName[0],tableType = tableType[0])
-                self.mainWindow_.contentTab.addTable(table)
+                if tableType == "Members":
+                    table = Group(tableName[1])
+                else:
+                    table = Table(tableName[0])
+                dataTable = DataTable(name = tableName[0],table=table,tableType = tableType[0])
+                self.mainWindow_.contentTab.addTable(dataTable)
 
 
 
@@ -66,8 +72,12 @@ class FileMenu(QMenu):
             message = ErrorMessage(str(inst))
             message.exec_()
             return
-
-        dataTable = GroupTable(name,table) 
+        if isinstance(table,Group):
+            dataTable = DataTable(name,table,"Members") 
+        elif isinstance(table,Table):
+            dataTable = DataTable(name,table,"Tresury") 
+        else:
+            return
         self.mainWindow_.contentTab.addTable(dataTable)
 
 
@@ -108,7 +118,12 @@ class FileMenu(QMenu):
             message.exec_()
             return
 
-        dataTable = GroupTable(name,table) 
+        if isinstance(table,Group):
+            dataTable = DataTable(name,table,"Members") 
+        elif isinstance(table,Table):
+            dataTable = DataTable(name,table,"Tresury") 
+        else:
+            return
         self.mainWindow_.contentTab.addTable(dataTable)
 
 

@@ -99,3 +99,19 @@ class ContentTab(QTabWidget):
         table.sortBy(key,reverse)
         table.refresh()
 
+
+    def delItem(self):
+        """
+        Delete the seletced items
+        """
+        table = self.tables_[self.currentIndex()]
+        selectedRanges = table.selectedRanges()
+        for selectedRange in selectedRanges:
+            topRow = selectedRange.topRow()
+            rowCount = selectedRange.rowCount()
+            for i in range(topRow,topRow+rowCount):
+                print(i)
+                table.removeRow(i)
+        table.isSaved = False
+
+
