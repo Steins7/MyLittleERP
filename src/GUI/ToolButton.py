@@ -9,7 +9,7 @@ class ToolButton(QPushButton):
 
         self.setFixedSize(40,40)
         #icon
-        icon = QIcon("~/../../ressources/"+iconPath)
+        icon = QIcon("~/../ressources/"+iconPath)
         self.setIcon(icon)
         self.setIconSize(QSize(38,38))
         #toolTip
