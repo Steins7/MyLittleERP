@@ -1,0 +1,9 @@
+name,firstName,surname,eMail,birthDate,cotisation,belongingGroups
+Turquetil,Théo,Heubeul,t6turqu@enib.fr,15/10/1998,True,[]
+Gaillard,Corentin,Vybhro,c6gailla@enib.fr,20/11/1998,False,[]
+Lemoine,Théo,Bouh-douh,t5lemoin@enib.fr,13/8/1997,False,[]
+Le Page,Julien,Hedge,j6lepage@enib.fr,25/6/1998,True,[]
+A,C,AC,,1/2/3,True,[]
+B,D,BD,,2/1/3,True,[]
+C,A,CA,,3/1/2,False,[]
+D,B,DB,,3/2/1,True,[]
